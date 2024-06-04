@@ -45,16 +45,18 @@ WITH (FORMAT CSV, HEADER);
 SELECT *
 FROM nba;
 
-SELECT s1.player_name, s1.position, s1.pts, s1.team
+--Player who averaged the most points per position
+SELECT s1.player_name, s1.position, s1.pts AS points, s1.team
 FROM nba s1
 JOIN (
-	SELECT position, MAX(pts) as pts
+	SELECT position, MAX(pts) as points
 	FROM nba 
 	GROUP BY position) AS s2
-	ON s1.position = s2.position AND s1.pts = s2.pts
-ORDER BY s2.pts DESC;
+	ON s1.position = s2.position AND s1.pts = s2.points
+ORDER BY s2.points DESC;
 
-SELECT position, SUM(pts)
+--Total average points scored by each position
+SELECT position, SUM(pts) AS total_points
 FROM nba
 GROUP BY position
 ORDER BY SUM(pts) DESC;
@@ -122,26 +124,6 @@ UPDATE nba
 SET ft_pct = -1
 WHERE ft_pct ISNULL;
 
-SELECT player_name,
-	   pts
-FROM nba 
-WHERE pts >= PERCENT_RANK() OVER (ORDER BY pts);
-
-SELECT player_name, pts
-FROM (SELECT 
-	 	player_name,
-	    pts,
-	    PERCENTILE_CONT(.9) WITHIN GROUP (ORDER BY pts) as pts_pctl
-	  FROM nba) n
-WHERE pts >= pts_pctl;
-
-SELECT PERCENTILE_CONT(.9) WITHIN GROUP (ORDER BY pts)
-FROM nba;
-
-SELECT player_name, pts
-FROM nba
-WHERE pts >= (SELECT PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY pts));
-
 --Select players who were in the top 10% of pts and assists
 SELECT player_name, pts, ast 
 FROM (SELECT 
@@ -154,7 +136,7 @@ FROM (SELECT
 	  GROUP BY player_name, pts, ast) AS ranked 
 	  WHERE pts_rank <= 0.1 AND ast_rank <= 0.1;
 
---Position group that averaged the most blocks per game
+--Average blocks per game by position
 SELECT position, AVG(blk)
 FROM nba
 GROUP BY position
