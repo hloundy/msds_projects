@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+  </head>
+  <body>
+    <div class="nav">
+      <a class="nav-item" href="{{url_for('about')}}">About</a>
+      <a class="nav-item" href="{{url_for('projects')}}">Other Projects</a>
+      <a class="nav-item" href="{{url_for('model')}}">Model</a>
+      <a class="nav-item" href="{{url_for('resume')}}">Resume</a>
+    </div>
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>

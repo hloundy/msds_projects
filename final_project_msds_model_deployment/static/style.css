@@ -1,0 +1,101 @@
+.nav {
+  background-color: black;
+  overflow: hidden;
+}
+.nav a {
+  color: white;
+  text-align: center;
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  font-size: 16px;
+  text-decoration: none;
+}
+.nav a:hover {
+  background-color: #F0F8FF;
+  color: #0000FF;
+}
+.edu {
+  text-align: center;
+  background-color: #F0FFFF;
+  margin: auto;
+  width: 50%;
+  border-style: solid;
+  border-width: medium;
+  border-color: #0000FF;
+}
+#resume {
+  background-color: #C0C0C0;
+}
+.img {
+  width: 800px;
+  height: 400px;
+}
+.prediction {
+  text-align: center;
+  background-color: #F0FFFF;
+  margin: auto;
+  width: 50%;
+  border-style: solid;
+  border-width: medium;
+  border-color: #0000FF;
+}
+#int {
+  background-color: #FFFFF0;
+}
+.intro {
+  text-align: center;
+  background-color: #DCDCDC;
+  margin: auto;
+  width: 50%;
+  border-style: solid;
+  border-width: thin;
+  border-color: #708090;
+}
+a:link {
+  text-decoration: none;
+}
+form {
+  text-align: center;
+  background-color: #ADD8E6;
+  text-decoration-color: #FFFFFF;
+  margin: auto;
+  width: 50%;
+  border-style: dotted;
+  border-width: medium;
+  border-color: #FFFFFF;
+}
+#m1 {
+  text-align: center;
+}
+.links {
+  text-align: center;
+  list-style-type: none;
+  text-decoration-color: #DC143C;
+}
+#fangraphs {
+  text-decoration-color: #DC143C;
+}
+.figure {
+  align-content: center;
+  margin: auto;
+  width: 50%;
+}
+
+.figure1 {
+  align-items: center;
+  margin: auto;
+  width: 12%;
+}
+.caption {
+  text-align: center;
+}
+
+.pphoto {
+  width: 200px;
+  height: 250px;
+  border-style: solid;
+  border-width: medium;
+  border-color: #0000FF;
+}
