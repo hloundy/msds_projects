@@ -150,3 +150,103 @@ GROUP BY team
 ORDER BY AVG(ft_pct) DESC
 LIMIT(1);
 
+--Averages of other metrics, grouped by position in ascending order
+SELECT team, ROUND(AVG(ft_pct) * 100, 2) AS avg_ft_pct
+FROM nba
+WHERE ft_pct != -1
+GROUP BY team
+ORDER BY avg_ft_pct;
+
+SELECT team, ROUND(AVG(tp_pct) * 100, 2) AS avg_tp_pct
+FROM nba
+WHERE tp_pct != -1
+GROUP BY team
+ORDER BY team;
+
+SELECT team, ROUND(AVG(thp_pct) * 100, 2) AS avg_thp_pct
+FROM nba
+WHERE thp_pct != -1
+GROUP BY team
+ORDER BY team;
+
+--Average free throw, two point, and three point shot percentages for all teams, not including the players
+--who did not attempt the respective shot
+SELECT t1.team,
+	   t2.avg_ft_pct,
+	   t3.avg_tp_pct,
+	   t4.avg_thp_pct
+FROM nba t1
+JOIN(
+	 SELECT team,
+		    ROUND(AVG(ft_pct)*100, 2) AS avg_ft_pct
+	 FROM nba
+	 WHERE ft_pct != -1
+	 GROUP BY team) AS t2
+ON t1.team = t2.team
+JOIN(
+	SELECT team,
+		   ROUND(AVG(tp_pct)*100, 2) AS avg_tp_pct
+	FROM nba
+	WHERE tp_pct != -1
+	GROUP BY team) AS t3
+ON t1.team = t3.team
+JOIN(
+	SELECT team,
+		   ROUND(AVG(thp_pct)*100, 2) AS avg_thp_pct
+	FROM nba
+	WHERE thp_pct != -1
+	GROUP BY team) AS t4
+ON t1.team = t4.team
+GROUP BY t1.team, t2.avg_ft_pct, t3.avg_tp_pct, t4.avg_thp_pct
+ORDER BY t1.team;
+
+--Teams who have players who never attempted a field goal
+SELECT team
+FROM nba
+WHERE fga = 0.0
+GROUP BY team;
+
+
+--Top 10 players in blocks per game
+SELECT player_name, position, blk
+FROM nba
+ORDER BY blk DESC
+LIMIT(10);
+
+--How many of the players who where top 10 in average blocks were centers?
+SELECT COUNT(*)
+FROM(
+	  SELECT player_name, position, blk
+	  FROM nba
+	  ORDER BY blk DESC
+	  LIMIT(10))
+WHERE position = 'C';
+
+--The one position who is not a center in top 10 blocks
+SELECT position
+FROM(
+	  SELECT player_name, position, blk
+	  FROM nba
+	  ORDER BY blk DESC
+	  LIMIT(10))
+WHERE position != 'C';
+
+
+--Players who averaged at least one block per game (written using exists clause)
+SELECT t1.player_name, t1.position, t1.ast, t1.blk
+FROM nba t1
+WHERE EXISTS (
+	SELECT pts
+	FROM nba t2
+	WHERE t1.player_name = t2.player_name AND blk >= 1.0
+);
+
+
+--Players who did not average at least one block per game
+SELECT t1.player_name, t1.position, t1.ast, t1.blk
+FROM nba t1
+WHERE NOT EXISTS (
+	SELECT pts
+	FROM nba t2
+	WHERE t1.player_name = t2.player_name AND blk >= 1.0
+);
