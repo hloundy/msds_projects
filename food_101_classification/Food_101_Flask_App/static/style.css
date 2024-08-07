@@ -1,0 +1,20 @@
+body {
+  background-color: #FFB6C1;
+}
+
+.prediction {
+  align-content: center;
+  width: 500px;
+  margin: auto;
+}
+
+img {
+  border-color: #0000FF;
+  border-width: thick;
+  border-style: solid;
+}
+
+.pred_1 {
+  background-color: #F0FFFF;
+  width: 410px;
+}

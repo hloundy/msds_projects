@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+  </head>
+  <body>
+    <h2>Please only upload .jpeg files</h2>
+    <form method="post" enctype="multipart/form-data">
+      {{form.hidden_tag()}}
+      {{form.photo}}
+      <br>
+      {{form.submit()}}
+
+    </form>
+
+    {% if file_url %}
+    <div class="prediction">
+      <img src="{{ file_url }}" style="width: 400px; height: 400px">
+      <div class="pred_1">
+      <p>The Model Predicts:</p>
+      <ul>
+        {% for item in sen_list %}
+          <li>{{item}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    </div>
+    {% endif %}
+  </body>
+</html>

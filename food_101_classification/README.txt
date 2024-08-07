@@ -1,0 +1,1 @@
+This folder contains the code I used to build a food classification model using feature extraction and fine-tuning on the EfficientNetV2B0 model architecture and training on the food-101 dataset, as well as a Flask app that uses this model to generate class predictions and probabilities from a user submitted image. 
